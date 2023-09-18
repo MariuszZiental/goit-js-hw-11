@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.photo-card {
+  width: 400px;
+  height: auto;
+  background-color: rgba(192, 194, 245, 0.467);
+  border-radius: 12px;
+}
+.info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+img {
+  object-fit: cover;
+  width: 400px;
+  height: 266px;
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+}
+.info-item {
+  text-align: center;
+}
+.search-form {
+  background-color: rgb(186, 173, 230);
+  padding-top: 30px;
+  padding-left: 39%;
+  padding-bottom: 30px;
+  margin: 0;
+}
+
+input {
+  font-size: 24px;
+  background-color: rgba(255, 255, 255, 0.718);
+  border-color: black;
+  border-radius: 8px;
+  color: black;
+}
+button {
+  font-size: 18px;
+  background-color: rgba(224, 240, 6, 0.616);
+  border-color: black;
+  border-radius: 8px;
+  color: black;
+  padding: 4px;
+  margin-left: 20px;
+}
