@@ -8,7 +8,7 @@ Notiflix.Notify.init({
 });
 
 const API_URL = 'https://pixabay.com/api/?';
-const API_KEY = '38310321-42cf4e8d1a5fc0af5b641205e';
+const API_KEY = '39544190-c7a34de0cf0fc54c64c975cab';
 
 const input = document.querySelector('input[name="searchQuery"]');
 const btn = document.querySelector('button[type="submit"]');
@@ -17,7 +17,7 @@ const loadMore = document.querySelector('.is-hidden');
 
 loadMore.style.display = 'none';
 
-let page = 1;
+const page = 1;
 
 const searchApi = async () => {
   return await axios.get(API_URL, {
@@ -33,28 +33,29 @@ const searchApi = async () => {
   });
 };
 
-const loadApi = () => {
-  searchApi()
-    .then(response => {
-      if (response.data.hits.length > 0 && input.value != '') {
-        const numberImg = response.data.total;
+const loadApi = async () => {
+  try {
+    const response = await searchApi();
 
-        gallery.innerHTML = createGallery(response);
-        loadMore.style.display = 'block';
+    if (response.data.hits.length > 0 && input.value !== '') {
+      const numberImg = response.data.total;
 
-        Notiflix.Notify.success(`Hooray! We found ${numberImg} images.`);
-        let lightbox = new SimpleLightbox('.gallery a');
-      } else {
-        clear();
-        loadMore.style.display = 'none';
-        Notiflix.Notify.failure(
-          `Sorry, there are no matching images. Please try again.`
-        );
-      }
-    })
-    .catch(error => console.log(error));
+      gallery.innerHTML = createGallery(response);
+      loadMore.style.display = 'block';
+
+      Notiflix.Notify.success(`Hooray! We found ${numberImg} images.`);
+      let lightbox = new SimpleLightbox('.gallery a');
+    } else {
+      clear();
+      loadMore.style.display = 'none';
+      Notiflix.Notify.failure(
+        `Sorry, there are no matching images. Please try again.`
+      );
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
-
 btn.addEventListener('click', e => {
   e.preventDefault();
   loadApi();
@@ -89,9 +90,11 @@ const createGallery = response => {
     .join('');
 };
 
-const loadMoreApi = () => {
-  page++;
-  searchApi().then(response => {
+const loadMoreApi = async () => {
+  try {
+    page++;
+    const response = await searchApi();
+
     gallery.insertAdjacentHTML('beforeend', createGallery(response));
     gallery.addEventListener('click', e => e.preventDefault());
     let lightbox = new SimpleLightbox('.gallery a');
@@ -99,12 +102,15 @@ const loadMoreApi = () => {
 
     const { height: cardHeight } =
       gallery.firstElementChild.getBoundingClientRect();
+
     if (response.data.total / page < 40) {
       Notiflix.Notify.failure(
         `Sorry, you've reached the end of the search results.`
       );
     }
-  });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 window.addEventListener('scroll', () => {
