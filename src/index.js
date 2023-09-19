@@ -17,7 +17,7 @@ const loadMore = document.querySelector('.is-hidden');
 
 loadMore.style.display = 'none';
 
-const page = 1;
+let page = 1;
 
 const searchApi = async () => {
   return await axios.get(API_URL, {
@@ -56,6 +56,7 @@ const loadApi = async () => {
     console.error(error);
   }
 };
+
 btn.addEventListener('click', e => {
   e.preventDefault();
   loadApi();
