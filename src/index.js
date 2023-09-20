@@ -59,7 +59,7 @@ const loadApi = async () => {
 
 btn.addEventListener('click', e => {
   e.preventDefault();
-  loadApi((page = 1));
+  loadApi(page = 1);
 });
 
 const clear = () => {
